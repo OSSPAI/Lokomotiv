@@ -3,13 +3,15 @@ package wagon
 type Type int8
 
 const (
-	TypeDataFormat Type = iota
+	TypeUnknown Type = iota
+	TypeDataFormat
 )
 
 type DataType int8
 
 const (
-	DataTypeJSON DataType = iota
+	DataTypeUnknown DataType = iota
+	DataTypeJSON
 	DataTypeString
 )
 
@@ -26,7 +28,7 @@ type Wagon interface {
 	GetDescription() string
 	GetInputType() DataType
 	GetOutputType() DataType
-	GetConfigDescription() []ConfigDescription
+	GetConfigDescription() ConfigDescription
 
-	Run(data *WagonData, config []*ConfigValue) *WagonData
+	Run(data *WagonData, config Config) (*WagonData, error)
 }
